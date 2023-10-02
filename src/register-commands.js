@@ -4,7 +4,7 @@ const { REST, Routes, ApplicationCommandOptionType  } = require('discord.js');
 const commands = [
     {
       name: 'wiki',
-      description: 'get the link of plugin',
+      description: 'get the wiki link of plugin',
       options: [
         {
           name: 'plugin-name',
@@ -26,7 +26,7 @@ const commands = [
       ],
     },{
         name: 'download',
-        description: 'get the link of plugin',
+        description: 'get the download link of plugin',
         options: [
           {
             name: 'plugin-name',

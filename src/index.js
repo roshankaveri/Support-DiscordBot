@@ -7,6 +7,8 @@ const client = new Client({
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.GuildEmojisAndStickers,
+        IntentsBitField.Flags.GuildScheduledEvents,
     ],
 });
 
@@ -114,5 +116,43 @@ function handlePluginWiki(interaction) {
         interaction.reply('Unknown plugin name.');
     }
 }
+
+
+client.on('messageCreate', async (msg) => {
+    if (msg.author.bot) {
+      return;
+    }
+  
+    const str = msg.content.toUpperCase();
+  
+    if (msg.channelId == '1158349649875320922') {
+      
+      const embed = new EmbedBuilder()
+        .setColor('#0099FF')
+        .setAuthor({
+            name: msg.author.displayName,
+            iconURL: msg.author.avatarURL(),
+        })
+        .setTitle(`Suggestion:\n`)
+        .setDescription(`${msg.content}`)
+        .setTimestamp();
+  
+      const reply = await msg.channel.send({ embeds: [embed] });
+      reply.react('✅');
+      reply.react('❌');
+      
+      const thread = await msg.channel.threads.create({
+        name: 'DisCuss Here',
+        startMessage: reply,
+      });
+      thread.send({ content: 'Discuss About The Suggestion' })
+      .then((newMessage) => {
+        console.log(`Added a new message to the thread with ID: ${newMessage.id}`);
+      })
+      .catch(console.error);
+      msg.delete();
+    }
+   
+  });
 
 client.login(process.env.TOKEN);
