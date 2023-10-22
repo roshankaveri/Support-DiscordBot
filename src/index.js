@@ -125,7 +125,7 @@ client.on('messageCreate', async (msg) => {
   
     const str = msg.content.toUpperCase();
   
-    if (msg.channelId == '1158349649875320922') {
+    if (msg.channelId == CHANNEL2) {
       
       const embed = new EmbedBuilder()
         .setColor('#0099FF')
@@ -133,16 +133,16 @@ client.on('messageCreate', async (msg) => {
             name: msg.author.displayName,
             iconURL: msg.author.avatarURL(),
         })
-        .setTitle(`Suggestion:\n`)
+        .setTitle(`Suggestion:                   \n`)
         .setDescription(`${msg.content}`)
         .setTimestamp();
   
       const reply = await msg.channel.send({ embeds: [embed] });
-      reply.react('✅');
-      reply.react('❌');
+      reply.react('⬆️');
+      reply.react('⬇️');
       
       const thread = await msg.channel.threads.create({
-        name: 'DisCuss Here',
+        name: 'Discuss Suggestion Here',
         startMessage: reply,
       });
       thread.send({ content: 'Discuss About The Suggestion' })
@@ -154,5 +154,62 @@ client.on('messageCreate', async (msg) => {
     }
    
   });
+ client.on('messageCreate', async (msg) => {
+    if (msg.author.bot) {
+      return;
+    }
+    if(msg.content.startsWith('!dm')){
+    const args = msg.content.split(' ');
+        console.log('a');
+        console.log(args.length);
+        console.log(args[2]);
+        console.log(args[3]);
+        const embed1 = new EmbedBuilder()
+        .setColor('#0099FF')
+        .setAuthor({
+            name: msg.author.displayName,
+            iconURL: msg.author.avatarURL(),
+        })
+        .setTitle(`⭐ Leave a Review ⭐`)
+        .setDescription(`Could you please leave a review for our plugin?\nYour feedback is greatly appreciated and helps us improve.\n\n⭐⭐⭐⭐⭐\nReview Here: [Plugin Link](https://www.spigotmc.org/resources/mine-x-farm-regen-1-17-1-20.107060/)\n\nThank You!!`)
+        .setURL('https://www.spigotmc.org/resources/mine-x-farm-regen-1-17-1-20.107060/')
+        .setTimestamp();
+
+
+        const embed2 = new EmbedBuilder()
+        .setColor('#0099FF')
+        .setAuthor({
+            name: msg.author.displayName,
+            iconURL: msg.author.avatarURL(),
+        })
+        .setTitle(`⭐ Leave a Review ⭐`)
+        .setDescription(`Could you please leave a review for our plugin?\nYour feedback is greatly appreciated and helps us improve.\n\n⭐⭐⭐⭐⭐\nReview Here: [Plugin Link](https://www.spigotmc.org/resources/ultimate-blockregen.110552/)\n\nThank You!!`)
+        .setURL('https://www.spigotmc.org/resources/ultimate-blockregen.110552/')
+        .setTimestamp();
+         
+    if (args.length === 4) {
+        const user = msg.mentions.users.first();
+        console.log('ab');
+        
+        if (!user) {
+          msg.reply('You need to mention a user.');
+        } else {
+            console.log('abc');
+          const response = args[3] === 'Free' ? embed1 : embed2;
+            user.send({ embeds: [response] })
+            .then(() => {
+              console.log(`Message sent to ${user.tag}'s DM`);
+            })
+            .catch((error) => {
+              console.error(`Error sending message: ${error}`);
+            });
+        }
+    }
+        
+    
+      
+      msg.delete();
+    }
+ });
 
 client.login(process.env.TOKEN);
