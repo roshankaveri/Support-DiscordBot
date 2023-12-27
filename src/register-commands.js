@@ -1,59 +1,66 @@
-require('dotenv').config();
-const { REST, Routes, ApplicationCommandOptionType  } = require('discord.js');
+require("dotenv").config();
+const { REST, Routes, ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
-    {
-      name: 'wiki',
-      description: 'get the wiki link of plugin',
-      options: [
-        {
-          name: 'plugin-name',
-          description: 'Enter plugin name',
-          type: ApplicationCommandOptionType.String,
-          choices: [
-            {
-              name: 'Ultimate_BlockRegen',
-              value: 'Ultimate_BlockRegen',
-            },
-            {
-              name: 'Mine_X_Farm_Regen',
-              value: 'Mine_X_Farm_Regen',
-            },
-
-          ],
-          required: true,
-        },
-      ],
-    },{
-        name: 'download',
-        description: 'get the download link of plugin',
-        options: [
+  {
+    name: "wiki",
+    description: "get the wiki link of plugin",
+    options: [
+      {
+        name: "plugin-name",
+        description: "Enter plugin name",
+        type: ApplicationCommandOptionType.String,
+        choices: [
           {
-            name: 'plugin-name',
-            description: 'Enter plugin name',
-            type: ApplicationCommandOptionType.String,
-            choices: [
-              {
-                name: 'Ultimate_BlockRegen',
-                value: 'Ultimate_BlockRegen',
-              },
-              {
-                name: 'Mine_X_Farm_Regen',
-                value: 'Mine_X_Farm_Regen',
-              },
-  
-            ],
-            required: true,
+            name: "Ultimate_BlockRegen",
+            value: "Ultimate_BlockRegen",
+          },
+          {
+            name: "Mine_X_Farm_Regen",
+            value: "Mine_X_Farm_Regen",
           },
         ],
+        required: true,
       },
-  ];
+    ],
+  },
+  {
+    name: "download",
+    description: "get the download link of plugin",
+    options: [
+      {
+        name: "plugin-name",
+        description: "Enter plugin name",
+        type: ApplicationCommandOptionType.String,
+        choices: [
+          {
+            name: "Ultimate_BlockRegen",
+            value: "Ultimate_BlockRegen",
+          },
+          {
+            name: "Mine_X_Farm_Regen",
+            value: "Mine_X_Farm_Regen",
+          },
+          {
+            name: "Modify_BrushDrop",
+            value: "Modify_BrushDrop",
+          },
+          {
+            name: "ResourcePack_Hub",
+            value: "ResourcePack_Hub",
+          },
+        ],
+        required: true,
+      },
+    ],
+  },
+];
 
-const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
 
 (async () => {
   try {
-    console.log('Registering slash commands...');
+    console.log("Registering slash commands...");
 
     await rest.put(
       Routes.applicationGuildCommands(
@@ -63,7 +70,7 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
       { body: commands }
     );
 
-    console.log('Slash commands were registered successfully!');
+    console.log("Slash commands were registered successfully!");
   } catch (error) {
     console.log(`There was an error: ${error}`);
   }
